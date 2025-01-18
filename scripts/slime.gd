@@ -5,12 +5,19 @@ var in_chase = false
 var player = null
 
 func _physics_process(delta: float) -> void:
+	var animation = $AnimatedSprite2D
 	
 	if in_chase:
 		position += (player.position - position)/SPEED
-		play_animation(1)
+		
+		if(player.position.x - position.x) < 0:
+			$AnimatedSprite2D.flip_h = true
+			animation.play("side_walk")
+		else:
+			$AnimatedSprite2D.flip_h = false
+			animation.play("side_walk")
 	else:
-		play_animation(0)
+		animation.play("front_idle")
 		
 	move_and_slide()
 	
@@ -22,12 +29,3 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 func _on_detection_area_body_exited(body: Node2D) -> void:
 	player = null
 	in_chase = false
-
-func play_animation(movement: int) -> void:
-	var animation = $AnimatedSprite2D
-	
-	if 	movement == 1:
-		animation.play("front_walk")
-	elif movement == 0:
-		animation.play("front_idle")
-	
