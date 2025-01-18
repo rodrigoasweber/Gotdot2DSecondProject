@@ -414,21 +414,22 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u7uqv"]
-radius = 3.5
+radius = 4.0
 
 [node name="player" type="CharacterBody2D"]
 y_sort_enabled = true
+collision_layer = 3
 script = ExtResource("1_50bpi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(-1, -15)
-scale = Vector2(1.02083, 0.958333)
+position = Vector2(0, -17)
+scale = Vector2(1.066, 1)
 sprite_frames = SubResource("SpriteFrames_bhlua")
 animation = &"front_idle"
 autoplay = "front_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
-position = Vector2(-0.5, -2)
+position = Vector2(0, -3)
 shape = SubResource("CircleShape2D_u7uqv")
