@@ -23,7 +23,6 @@ func _on_map_01_transition_point_body_exited(body: Node2D) -> void:
 
 func change_scene() -> void:
 	if global.transition_scene:
-		if global.current_scene == "map_00":
-			get_tree().change_scene_to_file("res://scenes/map_01.tscn")
-			global.game_first_load = false
-			global.finish_scene_transaction_to("map_01")
+		get_tree().change_scene_to_file("res://scenes/map_01.tscn")
+		global.game_first_load = false
+		global.finish_scene_transaction()

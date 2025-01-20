@@ -14,4 +14,4 @@ func _on_map_00_transition_point_body_exited(body: Node2D) -> void:
 func change_scene() -> void:
 	if global.transition_scene:
 		get_tree().change_scene_to_file("res://scenes/map_00.tscn")
-		global.finish_scene_transaction_to("map_00")
+		global.finish_scene_transaction()
