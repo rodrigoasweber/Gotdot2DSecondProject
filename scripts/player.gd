@@ -13,6 +13,7 @@ func _physics_process(delta: float) -> void:
 	player_movement(delta)
 	deal_with_dmg()
 	attack()
+	current_camera()
 	
 	if health <= 0:
 		is_alive = false ##go back to menu or respaw....
@@ -47,7 +48,7 @@ func player_movement(delta: float) -> void:
 		play_animation(0)
 		velocity.x = 0
 		velocity.y = 0
-		
+
 	move_and_slide()
 	
 func play_animation(movement: int) -> void:
@@ -87,7 +88,6 @@ func play_animation(movement: int) -> void:
 func _on_player_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("enemy"):
 		enemy_inatk_range = true
-		print("enemy_inatk_range: ", enemy_inatk_range)
 		
 
 func _on_player_hitbox_body_exited(body: Node2D) -> void:
@@ -97,7 +97,6 @@ func _on_player_hitbox_body_exited(body: Node2D) -> void:
 func deal_with_dmg():
 	if enemy_inatk_range and enemy_atk_cooldown:
 		health = health - 20
-		print("player health: ", health)
 		enemy_atk_cooldown = false
 		$atk_cd.start()
 		
@@ -132,3 +131,11 @@ func _on_deal_atk_timer_timeout() -> void:
 
 func player() -> void:
 	pass
+	
+func current_camera() -> void:
+	if global.current_scene == "map00":
+		$map00_camera.enabled = true
+		$map01_camera.enabled = false
+	elif global.current_scene == "map01":
+		$map00_camera.enabled = false
+		$map01_camera.enabled = true
