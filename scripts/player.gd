@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var enemy_inatk_range: bool = false
 var enemy_atk_cooldown: bool = true
-var health: int = 160
+var health: int = 100
 var is_alive: bool = true
 var is_atk_in_progress: bool = false
 
@@ -13,7 +13,7 @@ func _physics_process(delta: float) -> void:
 	player_movement(delta)
 	deal_with_dmg()
 	attack()
-	current_camera()
+	update_health_bar()
 	
 	if health <= 0:
 		is_alive = false ##go back to menu or respaw....
@@ -131,11 +131,20 @@ func _on_deal_atk_timer_timeout() -> void:
 
 func player() -> void:
 	pass
-	
-func current_camera() -> void:
-	if global.current_scene == "map00":
-		$map00_camera.enabled = true
-		$map01_camera.enabled = false
-	elif global.current_scene == "map01":
-		$map00_camera.enabled = false
-		$map01_camera.enabled = true
+
+func update_health_bar() -> void:
+	var health_bar = $health_bar
+	health_bar.value = health
+	if health >= 100:
+		health_bar.visible = false
+	else:
+		health_bar.visible = true
+		
+
+func _on_health_regen_timeout() -> void:
+	if health < 100:
+		health = health + 20
+		if health > 100:
+			health = 100
+	elif health <= 0:
+		health = 0

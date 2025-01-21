@@ -10,6 +10,7 @@ var player:CharacterBody2D = null
 
 func _physics_process(delta: float) -> void:
 	deal_with_dmg()
+	update_health_bar()
 	
 	var animation = $AnimatedSprite2D
 	
@@ -52,9 +53,16 @@ func deal_with_dmg() -> void:
 		health = health - 20
 		can_take_dmg = false
 		$take_dmg_cd.start()
-		print("slime health: ", health) 
 		if health <= 0:
 			self.queue_free()
 
 func _on_take_dmg_cd_timeout() -> void:
 	can_take_dmg = true
+
+func update_health_bar() -> void:
+	var health_bar = $health_bar
+	health_bar.value = health
+	if health >= 100:
+		health_bar.visible = false
+	else:
+		health_bar.visible = true

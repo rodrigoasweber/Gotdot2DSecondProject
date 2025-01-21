@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://bj36sgkvxve0t"]
+[gd_scene load_steps=14 format=4 uid="uid://bj36sgkvxve0t"]
 
 [ext_resource type="Script" path="res://scripts/map_01.gd" id="1_4f8sj"]
 [ext_resource type="Texture2D" uid="uid://bvaje6x1f1ams" path="res://assets/tilesets/grass.png" id="1_a6vvs"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://t0axy8rlc4jy" path="res://assets/tilesets/fences.png" id="3_k5xjf"]
 [ext_resource type="Texture2D" uid="uid://mygq5183iqeo" path="res://assets/objects/objects.png" id="4_88e3s"]
 [ext_resource type="PackedScene" uid="uid://c8601bjak68kp" path="res://scenes/player.tscn" id="5_h0omv"]
+[ext_resource type="PackedScene" uid="uid://bs3gsnkoitv8r" path="res://scenes/slime.tscn" id="7_oeugp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nk06s"]
 texture = ExtResource("1_a6vvs")
@@ -143,6 +144,7 @@ tile_map_data = PackedByteArray("AAAEAAQABAAAAAUAAAANAAIABAAAAAUAAAAgAAIABAAAAAU
 tile_set = SubResource("TileSet_5gffr")
 
 [node name="player" parent="." instance=ExtResource("5_h0omv")]
+y_sort_enabled = false
 position = Vector2(103, 296)
 
 [node name="collisions" type="StaticBody2D" parent="."]
@@ -156,6 +158,20 @@ position = Vector2(-449, 328)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="map_00_transition_point"]
 position = Vector2(552.5, -12)
 shape = SubResource("RectangleShape2D_8ou1r")
+
+[node name="slimes" type="Node2D" parent="."]
+
+[node name="slime" parent="slimes" instance=ExtResource("7_oeugp")]
+position = Vector2(244, 228)
+
+[node name="slime2" parent="slimes" instance=ExtResource("7_oeugp")]
+position = Vector2(37, 44)
+
+[node name="slime3" parent="slimes" instance=ExtResource("7_oeugp")]
+position = Vector2(570, 131)
+
+[node name="slime4" parent="slimes" instance=ExtResource("7_oeugp")]
+position = Vector2(224, 109)
 
 [connection signal="body_entered" from="map_00_transition_point" to="." method="_on_map_00_transition_point_body_entered"]
 [connection signal="body_exited" from="map_00_transition_point" to="." method="_on_map_00_transition_point_body_exited"]
